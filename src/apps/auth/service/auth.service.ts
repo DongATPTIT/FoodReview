@@ -7,7 +7,7 @@ import { User } from 'src/core/entities/user/user.entity';
 import { AccountService } from '../../account/service/account.service';
 
 import { GeneralException } from 'src/core/exception/exception';
-import { LoginRequest } from 'src/core/dto/login.dto';
+import { LoginRequest } from 'src/core/dto/auth/login.dto';
 import { RegisterRequest } from 'src/core/dto/register.dto';
 
 @Injectable()

@@ -7,7 +7,8 @@ import { User } from 'src/core/entities/user/user.entity';
 import { GeneralException } from 'src/core/exception/exception';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { RegisterRequest } from 'src/core/dto/register.dto';
+import { RegisterRequest } from 'src/core/dto/auth/register.dto';
+
 @Injectable()
 export class AccountService{
 
@@ -50,10 +51,20 @@ export class AccountService{
             return await this.accountRepository.save(newUser);
     }
     
+
+    async changePassword(userId:number,oldPassword:string,newPassword:string){
+        const user:User =await this.findById(userId);
+        const check: boolean=await this.checkHashPassword(oldPassword,user.password);
+        if(!check)
+            throw new GeneralException("Old Password is not correct",400);
+        user.password =await this.hashPassword(newPassword);
+        await this.accountRepository.save(user);
+        return {success:true ,message:"Change password success"}
+    }
     async hashPassword(plainPassword:string){
         const saltOrRounds = 10;
         return await bcrypt.hash(plainPassword, saltOrRounds);
-      }
+    }
     
     async checkHashPassword(plainPassword:string,hashPassword:string){
         return await bcrypt.compare(plainPassword, hashPassword);
