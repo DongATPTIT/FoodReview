@@ -12,6 +12,7 @@ import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from 'src/core/gaurds/jwt-auth.guard';
 import { JwtStrategy } from 'src/core/strategy/jwt.strategy';
 import { AllFilterException } from 'src/core/exception/filter.exception';
+import { GoogleStrategy } from 'src/core/strategy/googleauth.strategy';
 
 
 
@@ -26,6 +27,7 @@ import { AllFilterException } from 'src/core/exception/filter.exception';
   controllers:[AuthControler],
   providers: [ AuthService,
                JwtStrategy,  
+               GoogleStrategy,
               {
                 provide: APP_GUARD,
                 useClass: JwtAuthGuard,
