@@ -15,13 +15,16 @@ import { User } from './core/entities/user/user.entity';
 import { UserLikePost } from './core/entities/user/user_like_post.entity';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './apps/auth/auth.module';
+import { MailModule } from './apps/mailer/mailer.module';
 import { AccountModule } from './apps/account/account.module';
-const modules=[AccountModule,AuthModule]
+const modules = [AccountModule, AuthModule, MailModule];
 @Module({
-  imports: [...modules,
+  imports: [
+    ...modules,
     ConfigModule.forRoot({
-      isGlobal:true,
-      envFilePath:".env"}),
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -38,12 +41,12 @@ const modules=[AccountModule,AuthModule]
         PostsDetail,
         Permissions,
         Posts,
-        UserPermission, 
+        UserPermission,
         User,
         DeviceToken,
         UserLikePost,
       ],
-      synchronize: false,
+      synchronize: true,
     }),
   ],
   controllers: [AppController],
