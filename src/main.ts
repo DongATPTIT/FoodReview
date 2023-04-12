@@ -8,6 +8,7 @@ async function bootstrap() {
   .setTitle('Food')
   .setDescription('The Food API description')
   .setVersion('1.0')
+  .addServer("http://localhost:3003")
   .addSecurity("scheme security",{
     type:'http',
     name: 'scheme',

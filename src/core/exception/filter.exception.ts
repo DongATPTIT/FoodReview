@@ -28,6 +28,7 @@ import { GeneralException } from './exception';
         ? exception.getResponse()
         : HttpStatus.INTERNAL_SERVER_ERROR;  
       const responseBody = {
+        isErorr:true,
         statusCode: httpStatus,
         timestamp: new Date().toISOString(),
         message:message,

@@ -2,11 +2,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { use } from 'passport';
-import { RegisterRequest } from 'src/apps/auth/dto/register.dto';
+
 import { User } from 'src/core/entities/user/user.entity';
 import { GeneralException } from 'src/core/exception/exception';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { RegisterRequest } from 'src/core/dto/register.dto';
 @Injectable()
 export class AccountService{
 
