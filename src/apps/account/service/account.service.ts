@@ -1,8 +1,6 @@
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { use } from 'passport';
-
 import { User } from 'src/core/entities/user/user.entity';
 import { GeneralException } from 'src/core/exception/exception';
 import { Repository } from 'typeorm';
@@ -43,6 +41,7 @@ export class AccountService{
             newUser.username=registerRequest.username;
             newUser.password=await this.hashPassword(registerRequest.password);
             newUser.phonenumber=registerRequest.phonenumber;
+            newUser.dob=registerRequest.dob
             newUser.email=registerRequest.email;
             newUser.name=registerRequest.name;
             newUser.sex=registerRequest.sex;
@@ -68,5 +67,22 @@ export class AccountService{
     
     async checkHashPassword(plainPassword:string,hashPassword:string){
         return await bcrypt.compare(plainPassword, hashPassword);
+    }
+
+
+    async createAccountForGoogleUser(user){
+        const existedUser= await this.accountRepository.findOne({where:{email:user.email}});
+        if(existedUser)
+            return existedUser;
+        const newUser=new User();
+        newUser.active=true;
+        newUser.avatar=user.picture;
+        newUser.name=user.firstName;
+        newUser.email=user.email;
+        newUser.username=user.email
+        newUser.password='0'
+        newUser.role=0
+        return await this.accountRepository.save(newUser)
+
     }
 }
