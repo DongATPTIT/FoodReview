@@ -14,29 +14,29 @@ import { JwtStrategy } from 'src/core/strategy/jwt.strategy';
 import { AllFilterException } from 'src/core/exception/filter.exception';
 import { GoogleStrategy } from 'src/core/strategy/googleauth.strategy';
 
-
-
 @Module({
-  imports: [AccountModule,
-    PassportModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '10days' },
-    }),
-  ],
-  controllers:[AuthControler],
-  providers: [ AuthService,
-               JwtStrategy,  
-               GoogleStrategy,
-              {
-                provide: APP_GUARD,
-                useClass: JwtAuthGuard,
-              },
-              // {
-              //   provide: APP_FILTER,
-              //   useClass: AllFilterException,
-              // },
-            ],
-  exports: [AuthService],
+    imports: [
+        AccountModule,
+        PassportModule,
+        JwtModule.register({
+            secret: jwtConstants.secret,
+            signOptions: { expiresIn: '10days' },
+        }),
+    ],
+    controllers: [AuthControler],
+    providers: [
+        AuthService,
+        JwtStrategy,
+        GoogleStrategy,
+        {
+            provide: APP_GUARD,
+            useClass: JwtAuthGuard,
+        },
+        // {
+        //   provide: APP_FILTER,
+        //   useClass: AllFilterException,
+        // },
+    ],
+    exports: [AuthService],
 })
 export class AuthModule {}

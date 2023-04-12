@@ -6,16 +6,16 @@ import { CreateCardDto } from './card.dto';
 
 @Injectable()
 export class CardService {
-  constructor(
-    @InjectRepository(Card)
-    private cardRespository: Repository<Card>,
-  ) {}
-  async createCard(createCard: CreateCardDto) {
-    console.log(createCard);
-    await this.cardRespository.save(createCard);
-  }
+    constructor(
+        @InjectRepository(Card)
+        private cardRespository: Repository<Card>,
+    ) {}
+    async createCard(createCard: CreateCardDto) {
+        console.log(createCard);
+        await this.cardRespository.save(createCard);
+    }
 
-  async findAll() {
-    return await this.cardRespository.find();
-  }
+    async findAll() {
+        return await this.cardRespository.find();
+    }
 }

@@ -1,26 +1,26 @@
 import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  Timestamp,
-  CreateDateColumn,
-  Index,
-  UpdateDateColumn,
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    Timestamp,
+    CreateDateColumn,
+    Index,
+    UpdateDateColumn,
 } from 'typeorm';
-@Entity({name:"images"})
+@Entity({ name: 'images' })
 export class Images {
-  @PrimaryGeneratedColumn({name:"id"})
-  id: number;
-  
-  @Column({name:"link"})
-  link: string;
+    @PrimaryGeneratedColumn({ name: 'id' })
+    id: number;
 
-  @Column({name:"post_id"})
-  postId: number;
+    @Column({ name: 'link' })
+    link: string;
 
-  @CreateDateColumn({ type: 'timestamp',name:"created_at" })
-  createdAt: Date;
+    @Column({ name: 'post_id' })
+    postId: number;
 
-  @UpdateDateColumn({ type: 'timestamp',name:"updated_at"})
-  updateddAt: Date;
+    @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ type: 'timestamp', name: 'updated_at' })
+    updateddAt: Date;
 }
