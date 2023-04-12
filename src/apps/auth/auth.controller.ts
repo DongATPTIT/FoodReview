@@ -2,6 +2,7 @@ import { Controller, Get,Request,Post,Body, UseGuards } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginRequest } from "./dto/login.dto";
 import { Public } from "./decorator/public-api.decorator";
+import { RegisterRequest } from "./dto/register.dto";
 
 
 
@@ -21,6 +22,13 @@ export class AuthControler{
     async profile(@Request() req){
         
         return req.user
+    }
+
+    @Public()
+    @Post("/register")
+    async registerAccount(@Body() registerRequest:RegisterRequest){
+        
+        return await this.authService.register(registerRequest);
     }
 
 }
