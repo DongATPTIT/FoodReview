@@ -1,7 +1,7 @@
-import {HttpException } from "@nestjs/common";
+import { HttpException } from '@nestjs/common';
 
-export class GeneralException extends HttpException{
-    constructor(message:string,status:number) {
-        super(message,status);
-      }
+export class GeneralException extends HttpException {
+    constructor(message: string, status: number) {
+        super(message, status);
+    }
 }

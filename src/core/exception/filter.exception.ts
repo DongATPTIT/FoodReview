@@ -4,37 +4,37 @@ import {
     ArgumentsHost,
     HttpException,
     HttpStatus,
-  } from '@nestjs/common';
-  import { HttpAdapterHost } from '@nestjs/core';
+} from '@nestjs/common';
+import { HttpAdapterHost } from '@nestjs/core';
 import { GeneralException } from './exception';
-  
-  @Catch()
-  export class AllFilterException implements ExceptionFilter {
+
+@Catch()
+export class AllFilterException implements ExceptionFilter {
     constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
-  
+
     catch(exception: unknown, host: ArgumentsHost): void {
-      // In certain situations `httpAdapter` might not be available in the
-      // constructor method, thus we should resolve it here.
-      const { httpAdapter } = this.httpAdapterHost;
-  
-      const ctx = host.switchToHttp();
-  
-      const httpStatus =
-        exception instanceof HttpException
-          ? exception.getStatus()
-          : HttpStatus.INTERNAL_SERVER_ERROR;
-     const message =
-        exception instanceof HttpException
-        ? exception.getResponse()
-        : HttpStatus.INTERNAL_SERVER_ERROR;  
-      const responseBody = {
-        isErorr:true,
-        statusCode: httpStatus,
-        timestamp: new Date().toISOString(),
-        message:message,
-        path: httpAdapter.getRequestUrl(ctx.getRequest()),
-      };
-  
-      httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
+        // In certain situations `httpAdapter` might not be available in the
+        // constructor method, thus we should resolve it here.
+        const { httpAdapter } = this.httpAdapterHost;
+
+        const ctx = host.switchToHttp();
+
+        const httpStatus =
+            exception instanceof HttpException
+                ? exception.getStatus()
+                : HttpStatus.INTERNAL_SERVER_ERROR;
+        const message =
+            exception instanceof HttpException
+                ? exception.getResponse()
+                : HttpStatus.INTERNAL_SERVER_ERROR;
+        const responseBody = {
+            isErorr: true,
+            statusCode: httpStatus,
+            timestamp: new Date().toISOString(),
+            message: message,
+            path: httpAdapter.getRequestUrl(ctx.getRequest()),
+        };
+
+        httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus);
     }
-  }
+}
