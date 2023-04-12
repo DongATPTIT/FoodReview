@@ -30,10 +30,10 @@ import { AllFilterException } from 'src/core/exception/filter.exception';
                 provide: APP_GUARD,
                 useClass: JwtAuthGuard,
               },
-              {
-                provide: APP_FILTER,
-                useClass: AllFilterException,
-              },
+              // {
+              //   provide: APP_FILTER,
+              //   useClass: AllFilterException,
+              // },
             ],
   exports: [AuthService],
 })

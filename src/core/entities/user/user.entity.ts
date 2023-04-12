@@ -41,6 +41,9 @@ export class User {
   @Column({name:"role",comment:"0 is user, 1 is admin"})
   role: number;
 
+  @Column({name:"avartar"})
+  avatar: string;
+
   @Column({name:"active",comment:"0 is inactive, 1 is active"})
   active: boolean;
 

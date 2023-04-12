@@ -45,7 +45,7 @@ export class AccountService{
             newUser.email=registerRequest.email;
             newUser.name=registerRequest.name;
             newUser.sex=registerRequest.sex;
-            newUser.active=false;
+            newUser.active=true;
             newUser.role=0;
             return await this.accountRepository.save(newUser);
     }
