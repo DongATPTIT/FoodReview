@@ -5,13 +5,15 @@ import { GeneralException } from 'src/core/exception/exception';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { RegisterRequest } from 'src/core/dto/auth/register.dto';
+import { EntityManager } from "typeorm";
 
 @Injectable()
 export class AccountService {
     constructor(
         @InjectRepository(User)
         private readonly accountRepository: Repository<User>,
-    ) {}
+        private readonly enTityManager: EntityManager,
+    ) { }
 
     async findAll(): Promise<User[]> {
         return await this.accountRepository.find();
@@ -87,7 +89,7 @@ export class AccountService {
         if (existedUser) return existedUser;
         const newUser = new User();
         newUser.active = true;
-        newUser.avatar = user.picture;
+
         newUser.name = user.firstName;
         newUser.email = user.email;
         newUser.username = user.email;
@@ -105,5 +107,10 @@ export class AccountService {
         return this.accountRepository.update(userId, {
             password: await this.hashPassword(password),
         });
+    }
+    async deleteUserbyID(userId: number) {
+        const query = `delete from user where id= ${userId}`;
+        const result = await this.enTityManager.query(query);
+        return result;
     }
 }

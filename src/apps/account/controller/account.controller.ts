@@ -1,4 +1,4 @@
-import { Get, Controller, Request, Post, Body } from '@nestjs/common';
+import { Get, Controller, Request, Post, Body, Delete, Param } from '@nestjs/common';
 import { AccountService } from '../service/account.service';
 import { ChangePasswordRequest } from 'src/core/dto/account/change-password.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -7,7 +7,7 @@ import { User } from 'src/core/entities/user/user.entity';
 @ApiTags('Account Controller')
 @Controller('account')
 export class AccountController {
-    constructor(private readonly accountService: AccountService) {}
+    constructor(private readonly accountService: AccountService) { }
     @Get('/profile')
     async getMyProfile(@Request() request) {
         const userDecode = request.user;
@@ -28,5 +28,10 @@ export class AccountController {
             changePasswordRequest.oldPassword,
             changePasswordRequest.newPasswrod,
         );
+    }
+
+    @Delete('/delete-user/:id')
+    async deleteUser(@Param('id') id: number) {
+        return await this.accountService.deleteUserbyID(id);
     }
 }
